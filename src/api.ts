@@ -1,7 +1,23 @@
 import * as rp from 'request-promise';
 import * as uuid from 'uuid/v4';
 
+import config = require("./config");
+
 export class API {
+
+    static endpoint = "https://challenget-team-25-f714a8mgmt.eastus.cloudapp.azure.com";
+    static options = {
+        method: null,
+        insecure: true,
+        rejectUnauthorized: false,
+        json: true,
+        uri: null,
+        headers: {
+            "Authorization": config.auth,
+            "content-type": "application/json"
+        },
+        body: null
+    };
 
     static async createPod(name: string) {
 
@@ -81,17 +97,11 @@ export class API {
             }
         };
 
-        const options = {
-            method: 'POST',
-            uri: "http://localhost:8001/apis/apps/v1beta1/namespaces/minecraft/statefulsets",
-            json: true,
-            headers: {
-                "content-type": "application/json"
-            },
-            body: pod
-        };
+        API.options.method = 'POST';
+        API.options.uri = API.endpoint + "/apis/apps/v1beta1/namespaces/minecraft/statefulsets";
+        API.options.body = pod;
 
-        await rp(options)
+        await rp(API.options)
             .then((body) => {
                 console.log(body);
                 return true;
@@ -104,24 +114,18 @@ export class API {
 
     static async deletePod(name: string) {
 
-        const options = {
-            method: 'DELETE',
-            uri: "http://localhost:8001/apis/apps/v1beta1/namespaces/minecraft/statefulsets/" + name,
-            json: true,
-            headers: {
-                "content-type": "application/json"
-            }
-        };
+        API.options.method = 'DELETE';
+        API.options.uri = API.endpoint + "/apis/apps/v1beta1/namespaces/minecraft/statefulsets/" + name,
 
-        await rp(options)
-            .then((body) => {
-                console.log(body);
-                return true;
-            })
-            .catch((err) => {
-                console.log(err);
-                return false;
-            });
+            await rp(API.options)
+                .then((body) => {
+                    console.log(body);
+                    return true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                });
     }
 
     static async createService(name: string) {
@@ -150,17 +154,11 @@ export class API {
             }
         };
 
-        const options = {
-            method: 'POST',
-            uri: "http://localhost:8001/api/v1/namespaces/minecraft/services",
-            json: true,
-            headers: {
-                "content-type": "application/json"
-            },
-            body: service
-        };
+        API.options.method = 'POST';
+        API.options.uri = API.endpoint + "/api/v1/namespaces/minecraft/services",
+            API.options.body = service;
 
-        await rp(options)
+        await rp(API.options)
             .then((body) => {
                 console.log(body);
                 return true;
@@ -175,25 +173,18 @@ export class API {
 
     static async deleteService(name: string) {
 
+        API.options.method = 'DELETE';
+        API.options.uri = API.endpoint + "/api/v1/namespaces/minecraft/services/" + name,
 
-        const options = {
-            method: 'DELETE',
-            uri: "http://localhost:8001/api/v1/namespaces/minecraft/services/" + name,
-            json: true,
-            headers: {
-                "content-type": "application/json"
-            }
-        };
-
-        await rp(options)
-            .then((body) => {
-                console.log(body);
-                return true;
-            })
-            .catch((err) => {
-                console.log(err);
-                return false;
-            });
+            await rp(API.options)
+                .then((body) => {
+                    console.log(body);
+                    return true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                });
     }
 
     static async createStorage(name: string) {
@@ -212,17 +203,11 @@ export class API {
             }
         };
 
-        const options = {
-            method: 'POST',
-            uri: "http://localhost:8001/apis/storage.k8s.io/v1/storageclasses",
-            json: true,
-            headers: {
-                "content-type": "application/json"
-            },
-            body: storage
-        };
+        API.options.method = 'POST';
+        API.options.uri = API.endpoint + "/apis/storage.k8s.io/v1/storageclasses",
+            API.options.body = storage;
 
-        await rp(options)
+        await rp(API.options)
             .then((body) => {
                 console.log(body);
                 return true;
@@ -235,24 +220,18 @@ export class API {
 
     static async deleteStorage(name: string) {
 
-        const options = {
-            method: 'DELETE',
-            uri: "http://localhost:8001/apis/storage.k8s.io/v1/storageclasses/" + name,
-            json: true,
-            headers: {
-                "content-type": "application/json"
-            }
-        };
+        API.options.method = 'DELETE';
+        API.options.uri = API.endpoint + "/apis/storage.k8s.io/v1/storageclasses/" + name,
 
-        await rp(options)
-            .then((body) => {
-                console.log(body);
-                return true;
-            })
-            .catch((err) => {
-                console.log(err);
-                return false;
-            });
+            await rp(API.options)
+                .then((body) => {
+                    console.log(body);
+                    return true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                });
     }
 
     static async create(req, res) {
@@ -267,34 +246,29 @@ export class API {
     }
 
     static async list(req, res) {
-        const options = {
-            method: 'GET',
-            uri: "http://localhost:8001/api/v1/namespaces/minecraft/services",
-            json: true,
-            headers: {
-                "content-type": "application/json"
-            }
-        };
+        console.log(config.auth);
+        API.options.method = 'GET';
+        API.options.uri = API.endpoint + "/api/v1/namespaces/minecraft/services",
 
-        await rp(options)
-            .then((body) => {
-                let json = [];
-                body.items.forEach(element => {
-                    let r = {
-                        "name": element.metadata.name,
-                        "endpoints": {
-                            "minecraft": element.status.loadBalancer.ingress[0].ip + ":25565",
-                            "rcon": element.status.loadBalancer.ingress[0].ip + ":25575"
-                        }
-                    };
-                    json.push(r);
-                    console.log(r);
+            await rp(API.options)
+                .then((body) => {
+                    let json = [];
+                    body.items.forEach(element => {
+                        let r = {
+                            "name": element.metadata.name,
+                            "endpoints": {
+                                "minecraft": element.status.loadBalancer.ingress[0].ip + ":25565",
+                                "rcon": element.status.loadBalancer.ingress[0].ip + ":25575"
+                            }
+                        };
+                        json.push(r);
+                        console.log(r);
+                    });
+                    res.send(json);
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-                res.send(json);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
 
     }
 

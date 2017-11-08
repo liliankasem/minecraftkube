@@ -3,6 +3,10 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 
+import { config as dotconfig } from 'dotenv';
+dotconfig();
+import config = require("./config");
+
 import { API } from './api';
 
 class App {

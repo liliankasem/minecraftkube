@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/release/app.js",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "env": {
+                "AUTH": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tdjQ4Y3oiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImQ1OTM1NWE0LWMzZTAtMTFlNy1iNmQxLTAwMGQzYTFiNmRlYiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.ZIpH_ACPjYMuekFHyccE5o9d3abMqbgcx-gfQ-iNGFwJk7RgHytVYbJ6pG50GiN-awuCZ9W7L5dG0TQrqeW7CAs9i3StpVk5OM20_scFyhR0l_4gsHzcVCIjfp10Q24qssEc3B0gnkdFjUW0jPH_KQTRyeDz8ZTB64qQyKwywiTt-9P7sxHR7pGnkgtyoyCG8XB8NgNbd4jU_X64n1Q4ofBS5KO72sxK7rsmR3xiR390BuBGhhcr2pK64NjRu9qLln-Dn7rOE4s7DIbrJtK3FtilKWwILWa0mgruRd-HQkATeGCRV3j7Kq7iXM5tdOn7-p_ojUTX4dSmgQMgAUL4GA"
+            },
+            "outFiles": [
+                "${workspaceFolder}/release/**/*.js"
+            ]
+        }
+    ]
+}
