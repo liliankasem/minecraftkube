@@ -1,6 +1,6 @@
 FROM node
 RUN mkdir api
-COPY files api/
+COPY . api/
 WORKDIR api/
 RUN npm install && npm build
-CMD [npm, start] 
+CMD ["npm", "start"]
