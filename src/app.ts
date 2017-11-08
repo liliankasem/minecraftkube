@@ -1,6 +1,5 @@
 "use strict";
 
-import * as path from "path";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 
@@ -31,8 +30,6 @@ class App {
         this.server.use(bodyParser.json());
         this.server.use('/', router);
 
-
-        // Setup Express Server
         this.server.listen(process.env.port || process.env.PORT || 3978, '::', () => {
             console.log('Server Up');
         });
