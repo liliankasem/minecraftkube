@@ -1,0 +1,9 @@
+kind: StorageClass
+namespace: minecraft
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: minecraft-storage
+provisioner: kubernetes.io/azure-disk
+parameters:
+  storageaccounttype: Standard_LRS
+  kind: Shared

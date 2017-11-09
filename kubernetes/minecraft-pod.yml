@@ -1,0 +1,41 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+namespace: minecraft
+metadata:
+  name: minecraft-deployment
+  labels:
+    app: minecraft
+spec:
+  replicas: 1
+  serviceName: "minecraft"
+  selector:
+    matchLabels:
+      app: minecraft
+  template:
+    metadata:
+      labels:
+        app: minecraft
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: challengetwo
+        imagePullPolicy: Always
+        image: openhack/minecraft-server:2.0
+        env:
+        - name: EULA
+          value: 'TRUE'
+        ports:
+        - containerPort: 25565
+        - containerPort: 25575
+        volumeMounts:
+        - name: datadir
+          mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: datadir
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: minecraft-storage
+        resources:
+          requests:
+            storage: 1Gi
